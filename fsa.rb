@@ -3,24 +3,24 @@ require './state'
 class FSA
   attr_reader :state, :states
   def initialize initial_state, states
-    @state = initial_state
+    @initial_state = initial_state
     @states = states
   end
 
   def accepted? input
-    update input
-    @state.accepted?
+    update(input).accepted?
   end
 
   def rejected? input
-    update input
-    @state.rejected?
+    update(input).rejected?
   end
 
   def update input
+    final = @initial_state
     input.split("").each do |trigger|
-      @state = @state.next_state trigger
+      final = final.next_state trigger
     end
+    final
   end
 
   private :update
