@@ -38,6 +38,11 @@ describe "FSA" do
     it "does not accept 'bbb'" do
       subject.accepted?('bbb').should be_false
     end
+
+    it "treats each input independently" do
+      subject.accepted?('bb').should be_true
+      subject.accepted?('bb').should be_true
+    end
   end
 
   describe "#rejected?" do
